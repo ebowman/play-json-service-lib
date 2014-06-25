@@ -1,0 +1,4 @@
+GET        /teams                         controllers.Teams.list(limit: Int ?= 50, offset: Int ?= 0)
+GET        /teams/:key                    controllers.Teams.getByKey(key: String)
+PUT        /teams/:key                    controllers.Teams.putByKey(key: String)
+DELETE     /teams/:key                    controllers.Teams.deleteByKey(key: String)
