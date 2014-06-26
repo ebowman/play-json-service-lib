@@ -28,6 +28,8 @@ You also need to register json for templates, so that errors can return a json d
 
 (Be sure to add this after `play.Project.playScalaSettings`).
 
+The library has a "provided" dependency on `com.typesafe.play:play:2.2.3` and `com.typesafe.play:play-json:2.2.3`, so you'll need to be sure your Play application depends on both these libraries.
+
 ### Play 2.3
 
 To use it with Play 2.3 (it's compiled against 2.3.0 at present), include this in your `libraryDependencies`:
@@ -48,6 +50,8 @@ You'll also need to make sure both the `PlayScala` and `SbtTwirl` plugins are en
       ),
       TwirlKeys.templateFormats += ("json" -> "com.gilt.play.json.templates.JsonFormat")
     )
+
+The library has a "provided" dependency on `com.typesafe.play:play:2.3.0`, `com.typesafe.play:play-json:2.3.0`, and `com.typesafe.play:twirl-api:1.0.2`, so you'll need to be sure your Play application depends on these libraries.
 
 ## Usage
 
