@@ -9,11 +9,11 @@ publishTo in ThisBuild := {
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
-publishArtifact in Test := false
+publishArtifact in Test in ThisBuild := false
 
-pomIncludeRepository := { _ => false }
+pomIncludeRepository in ThisBuild := { _ => false }
 
-pomExtra := (
+pomExtra in ThisBuild := (
   <scm>
     <url>git@github.com:gilt/play-json-service-lib.git</url>
     <connection>scm:git:git@github.com:gilt/play-json-service-lib.git</connection>
