@@ -3,7 +3,7 @@ name := "play-json-service-lib"
 
 organization in ThisBuild := "com.gilt"
 
-version in ThisBuild := "1.0.0-SNAPSHOT"
+version in ThisBuild := "1.0.0"
 
 homepage := Some(url("http://github.com/gilt/play-json-service-lib"))
 
