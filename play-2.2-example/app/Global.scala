@@ -7,13 +7,16 @@ import play.api.mvc._
 import scala.concurrent.Future
 
 object Global extends GlobalSettings {
-  override def onBadRequest(request: RequestHeader, error: String): Future[SimpleResult] = {
+  override def onBadRequest(request: RequestHeader,
+                            error: String): Future[SimpleResult] = {
     Future.successful(BadRequest(views.json.error(error)))
   }
 
-  override def onError(request: RequestHeader, ex: Throwable): Future[SimpleResult] = {
+  override def onError(request: RequestHeader,
+                       ex: Throwable): Future[SimpleResult] = {
     val stringWriter = new StringWriter()
     ex.printStackTrace(new PrintWriter(stringWriter))
-    Future.successful(BadRequest(views.json.error("An unexpected error occurred", stringWriter.toString)))
+    Future.successful(BadRequest(views.json.error(
+      "An unexpected error occurred", stringWriter.toString)))
   }
 }
