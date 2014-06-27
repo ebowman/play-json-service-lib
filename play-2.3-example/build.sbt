@@ -6,7 +6,7 @@ lazy val root =
     name := "play-2.3-example",
     scalaVersion := "2.11.1",
     libraryDependencies ++= Seq(
-      "com.gilt" %% "play-json-service-lib-2-3" % "1.0.0"
+      "com.gilt" %% "play-json-service-lib-2-3" % "1.0.1"
     ),
     TwirlKeys.templateFormats += ("json" -> "com.gilt.play.json.templates.JsonFormat")
   )
