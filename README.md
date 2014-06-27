@@ -20,7 +20,7 @@ This library collects a few useful tricks we’ve found helpful at Gilt, to make
 
 To use the library with Play 2.2 (it’s specifically compiled against 2.2.3 at present), include this in your `libraryDependencies` in build.sbt:
 
-    "com.gilt" %% "play-json-service-lib-2.2" % "1.0.0"
+    "com.gilt" %% "play-json-service-lib-2-2" % "1.0.0"
 
 You also need to register json for templates, so that errors can return a json document instead of the standard html error page. To do this, add this line to `build.sbt`:
 
@@ -34,7 +34,7 @@ The library has a "provided" dependency on `com.typesafe.play:play:2.2.3` and `c
 
 To use it with Play 2.3 (it's compiled against 2.3.0 at present), include this in your `libraryDependencies`:
 
-    "com.gilt" %% "play-json-service-lib-2.3" % "1.0.0"
+    "com.gilt" %% "play-json-service-lib-2-3" % "1.0.0"
 
 You also need to register json for templates, so that errors can return a json document instead of the standard html error page. To do this, add this line to `build.sbt`:
 
