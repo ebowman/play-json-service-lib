@@ -51,13 +51,13 @@ trait JsonController extends Controller with Pagination {
   def errorView: {def apply(msgs: String*): JsonFormat.Appendable}
 
   override val BadRequest = new Status(Http.Status.BAD_REQUEST) {
-    def apply(messages: String*): Result = Results.BadRequest(errorView(messages: _*))
+    def apply(messages: String*): SimpleResult = Results.BadRequest(errorView(messages: _*))
   }
 
   override val Ok = new Status(Http.Status.OK) {
     def apply[T](obj: T)(implicit writes: Writes[T],
                          request: Request[_],
-                         pagination: IPagination = NoPagination): Result = {
+                         pagination: IPagination = NoPagination): SimpleResult = {
       pagination.links.fold(Results.Ok(Json.toJson(obj))) {
         case links => Results.Ok(Json.toJson(obj)).withHeaders(links)
       }
@@ -67,12 +67,12 @@ trait JsonController extends Controller with Pagination {
   override val Created = new Status(Http.Status.CREATED) {
     def apply[T](obj: T)(implicit writes: Writes[T],
                          request: Request[_],
-                         call: Call): Result = {
+                         call: Call): SimpleResult = {
       Results.Created(Json.toJson(obj)).withHeaders(("Location", uri(call)))
     }
   }
 
   override val NotFound = new Status(Http.Status.NOT_FOUND) {
-    def apply(messages: String*): Result = Results.NotFound(errorView(messages: _*))
+    def apply(messages: String*): SimpleResult = Results.NotFound(errorView(messages: _*))
   }
 }
