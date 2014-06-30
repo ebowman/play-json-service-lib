@@ -86,6 +86,19 @@ In this case you can pass a `String` (or multiple `String`s) to `NotFound` or `B
       models.Teams.getByEmail(key).map(Ok(_)).getOrElse(NotFound(s"No team with key=[$key]"))
     }
 
+This common pattern where an `Option` is returned and generates either an `Ok` or `NotFound` can also use the `OkOption` method:
+
+    def getByKey(key: String) = Action { implicit request =>
+      OkOption(models.Teams.getByEmail(key), s"No team with key=[$key]")
+    }
+
+For use in `Action.async` controller methods, `OkFuture` and `OkFutureOption` lift these methods into the `Future` monad:
+
+    def getByKey(key: String) = Action.async { implicit request =>
+      OkFutureOption(models.Teams.getByEmail(key), s"No team with key=[$key]")
+    }
+
+
 ### Location headers
 
 The `Created` response makes it easy to generate a `Location:` header in a `201 CREATED` HTTP response, if you include an implicit `Call` instance in scope:
@@ -108,6 +121,8 @@ Requests that return large responses often need to [support pagination](http://t
       implicit val pagination = paginate(result, limit, offset)(routes.Teams.list)
       Ok(result)
     }
+
+If you are using async actions, `OkFuture` expects an implicit `Future[Pagination]`
 
 ## Examples
 

@@ -20,7 +20,7 @@ object Teams extends JsonController {
   }
 
   def getByKey(key: String) = Action { implicit request =>
-    models.Teams.getByKey(key).fold(NotFound(s"No team $key"): Result)(Ok(_))
+    OkOption(models.Teams.getByKey(key), s"No team $key")
   }
 
   def putByKey(key: String) = Action(parse.json) {
