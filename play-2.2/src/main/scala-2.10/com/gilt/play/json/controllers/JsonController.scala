@@ -1,9 +1,11 @@
 package com.gilt.play.json.controllers
 
 import com.gilt.play.json.templates.JsonFormat
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import play.mvc.Http
+import scala.concurrent.Future
 
 trait Pagination {
 
@@ -75,4 +77,32 @@ trait JsonController extends Controller with Pagination {
   override val NotFound = new Status(Http.Status.NOT_FOUND) {
     def apply(messages: String*): SimpleResult = Results.NotFound(errorView(messages: _*))
   }
+
+  val OkOption = new Status(Http.Status.OK) {
+    def apply[T](opt: Option[T], notFoundMessage: String = "")
+      (implicit writes: Writes[T],
+        request: Request[_],
+        pagination: IPagination = NoPagination): SimpleResult = {
+      opt.fold(NotFound(notFoundMessage))(Ok(_))
+    }
+  }
+
+  val OkFuture = new Status(Http.Status.OK) {
+    def apply[T](fo: Future[T])
+      (implicit writes: Writes[T],
+        request: Request[_],
+        pagination: Future[IPagination] = Future.successful(NoPagination)): Future[SimpleResult] = {
+      pagination flatMap { implicit p => fo map (Ok(_)) }
+    }
+  }
+
+  val OkFutureOption = new Status(Http.Status.OK) {
+    def apply[T](fo: Future[Option[T]], notFoundMessage: String = "")
+      (implicit writes: Writes[T],
+        request: Request[_],
+        pagination: Future[IPagination] = Future.successful(NoPagination)): Future[SimpleResult] = {
+      pagination flatMap { implicit p => fo map (_.fold(NotFound(notFoundMessage))(Ok(_))) }
+    }
+  }
+
 }
