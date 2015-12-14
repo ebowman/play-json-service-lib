@@ -1,6 +1,6 @@
-package com.gilt.play.json.controllers
+package ie.boboco.play.json.controllers
 
-import com.gilt.play.json.templates.JsonFormat
+import ie.boboco.play.json.templates.JsonFormat
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._

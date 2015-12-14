@@ -3,11 +3,13 @@
 
 ## Introduction
 
-`play-json-service-lib` is a library for Play Framework 2.2.3 and 2.3.0 that provides some helpers to make it easier to write services that provides RESTful JSON-based services using Play.
+This project was forked from [https://github.com/gilt/play-json-service-lib](https://github.com/gilt/play-json-service-lib) in order to provide support for Play 2.4.
+
+`play-json-service-lib` is a library for Play Framework 2.4 that provides some helpers to make it easier to write services that provides RESTful JSON-based services using Play.
 
 Play is slightly biased toward general purpose web development, and as a result there are some missing features that would simplify writing simple REST/JSON services.
 
-This library collects a few useful tricks we’ve found helpful at Gilt, to make them easier to create RESTful JSON services. In particular,
+This library collects a few useful tricks we’ve found helpful at Gilt and elsewhere, to make them easier to create RESTful JSON services. In particular,
 
 1. Returning objects to be serialized as JSON, without having to call Json.toJson everywhere.
 2. Easier support for basic [Link header](http://tools.ietf.org/html/rfc5988#section-5) support when paginating.
@@ -16,46 +18,32 @@ This library collects a few useful tricks we’ve found helpful at Gilt, to make
 
 ## Installation & Configuration
 
-### Play 2.2
+### Play 2.4
 
-To use the library with Play 2.2 (it’s specifically compiled against 2.2.3 at present), include this in your `libraryDependencies` in build.sbt:
+To use it with Play 2.4, include this in your `libraryDependencies`:
 
-    "com.gilt" %% "play-json-service-lib-2-2" % "1.1.0"
-
-You also need to register json for templates, so that errors can return a json document instead of the standard html error page. To do this, add this line to `build.sbt`:
-
-    templatesTypes += ("json" -> "com.gilt.play.json.templates.JsonFormat")
-
-(Be sure to add this after `play.Project.playScalaSettings`).
-
-The library has a "provided" dependency on `com.typesafe.play:play:2.2.3` and `com.typesafe.play:play-json:2.2.3`, so you'll need to be sure your Play application depends on both these libraries.
-
-### Play 2.3
-
-To use it with Play 2.3 (it's compiled against 2.3.0 at present), include this in your `libraryDependencies`:
-
-    "com.gilt" %% "play-json-service-lib-2-3" % "1.1.0"
+    "ie.boboco" %% "play-json-service-lib-2-3" % "1.2.0"
 
 You also need to register json for templates, so that errors can return a json document instead of the standard html error page. To do this, add this line to `build.sbt`:
 
-    TwirlKeys.templateFormats += ("json" -> "com.gilt.play.json.templates.JsonFormat")
+    TwirlKeys.templateFormats += ("json" -> "ie.boboco.play.json.templates.JsonFormat")
 
 You'll also need to make sure both the `PlayScala` and `SbtTwirl` plugins are enabled.  For example, a simple build might look like:
 
     lazy val root = (project in file(".")). enablePlugins(PlayScala, SbtTwirl). settings(
-      name := "play-2.3-example",
-      scalaVersion := "2.11.1",
+      name := "play-2.4-example",
+      scalaVersion := "2.11.7",
       libraryDependencies ++= Seq(
-        "com.gilt" %% "play-json-service-lib-2-3" % "1.1.0"
+        "ie.boboco" %% "play-json-service-lib-2-4" % "1.2.0"
       ),
-      TwirlKeys.templateFormats += ("json" -> "com.gilt.play.json.templates.JsonFormat")
+      TwirlKeys.templateFormats += ("json" -> "JsonFormat")
     )
 
-The library has a "provided" dependency on `com.typesafe.play:play:2.3.0`, `com.typesafe.play:play-json:2.3.0`, and `com.typesafe.play:twirl-api:1.0.2`, so you'll need to be sure your Play application depends on these libraries.
+The library has a "provided" dependency on `com.typesafe.play:play:2.4.4`, `com.typesafe.play:play-json:2.4.4`, and `com.typesafe.play:twirl-api:1.1.1`, so you'll need to be sure your Play application depends on these libraries.
 
 ## Usage
 
-To use these features, extend your Play controllers from `com.gilt.play.json.controllers.JsonController`, like this:
+To use these features, extend your Play controllers from `JsonController`, like this:
 
     object Teams extends JsonController {
 
@@ -126,6 +114,9 @@ If you are using async actions, `OkFuture` expects an implicit `Future[Paginatio
 
 ## Examples
 
-You can see a complete worked example for Play 2.2 [here](https://github.com/gilt/play-json-service-lib/tree/master/play-2.2-example).
+You can see a complete worked example for Play 2.4 [here](https://github.com/ebowman/play-json-service-lib/tree/master/play-2.4-example).
 
-You can see a complete worked example for Play 2.3 [here](https://github.com/gilt/play-json-service-lib/tree/master/play-2.3-example).
+## Building
+
+To build this across multiple scala versions, do something like `sbt publishLocal` which will publish it to your local ivy repo, built against both scala 2.10 and scala 2.11.
+

@@ -1,4 +1,4 @@
-package com.gilt.play.json.templates
+package ie.boboco.play.json.templates
 
 import play.api.http.{ContentTypeOf, ContentTypes, MimeTypes}
 import play.api.mvc.Codec

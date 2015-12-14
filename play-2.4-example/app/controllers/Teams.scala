@@ -1,6 +1,6 @@
 package controllers
 
-import com.gilt.play.json.controllers.JsonController
+import ie.boboco.play.json.controllers.JsonController
 import play.api.libs.json._
 import play.api.mvc._
 
