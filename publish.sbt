@@ -15,8 +15,8 @@ pomIncludeRepository in ThisBuild := { _ => false }
 
 pomExtra in ThisBuild := (
   <scm>
-    <url>git@github.com:gilt/play-json-service-lib.git</url>
-    <connection>scm:git:git@github.com:gilt/play-json-service-lib.git</connection>
+    <url>git@github.com:ebowman/play-json-service-lib.git</url>
+    <connection>scm:git:git@github.com:ebowman/play-json-service-lib.git</connection>
   </scm>
   <developers>
     <developer>
